@@ -54,6 +54,12 @@
 * { box-sizing: border-box; }
 *, *::before, *::after { min-width: 0; }
 
+/* Any element hidden via the `hidden` attribute must actually disappear,
+   even when another rule here also sets `display` on it (e.g. `.layout`
+   sets display:grid, which would otherwise beat the browser's built-in
+   [hidden] rule since author styles always outrank the UA stylesheet). */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -406,4 +412,161 @@ fieldset.lifts legend {
   margin-top: 10px;
   font-weight: 600;
   color: var(--text-secondary);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--gridline);
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  padding: 10px 4px;
+  margin-right: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transform: translateY(1px);
+}
+
+.tab-btn:hover { color: var(--text-primary); }
+
+.tab-btn.active {
+  color: var(--series-1);
+  border-bottom-color: var(--series-1);
+}
+
+.tab-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--series-1) 25%, transparent);
+  border-radius: 4px;
+}
+
+.secondary-btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--baseline);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.secondary-btn:hover { border-color: var(--text-secondary); }
+
+/* Programme */
+.programme-intro { margin-bottom: 20px; }
+
+.programme-intro-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.programme-intro-row h2 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.placeholder-note {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--gridline);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.programme-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.day-card h3 {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+}
+
+.block {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--gridline);
+}
+
+.block:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.block-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.block-instructions {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.exercise-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.exercise-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.exercise-check input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  accent-color: var(--series-1);
+  cursor: pointer;
+}
+
+.exercise-check span {
+  overflow-wrap: anywhere;
+}
+
+.exercise-row.is-done .exercise-check span {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.weight-note {
+  width: 96px;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  padding: 6px 8px;
 }

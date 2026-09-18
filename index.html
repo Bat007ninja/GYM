@@ -19,7 +19,12 @@
     <p class="byline">by Connor Porter</p>
   </header>
 
-  <main class="layout">
+  <nav class="tabs" aria-label="Sections">
+    <button type="button" class="tab-btn active" data-page="calculator" aria-current="page">Strength Calculator</button>
+    <button type="button" class="tab-btn" data-page="programme">My Programme</button>
+  </nav>
+
+  <main class="layout page-section" id="page-calculator">
 
     <section class="card form-card" aria-labelledby="form-heading">
       <h2 id="form-heading">Your numbers</h2>
@@ -131,6 +136,23 @@
 
   </main>
 
+  <section class="page-section" id="page-programme" hidden>
+
+    <div class="card programme-intro">
+      <div class="programme-intro-row">
+        <div>
+          <h2>My Programme</h2>
+          <p class="chart-note">Same block structure every session — Block 1: choose 1 of 2. Block 2: do 1–3 of 3. Block 3: choose 1 of 2 — with different exercises on each of your 3 training days. Tick off what you did; it's saved on this device.</p>
+        </div>
+        <button type="button" class="secondary-btn" id="reset-programme-btn">Reset progress</button>
+      </div>
+      <p class="placeholder-note" id="placeholder-note">These are placeholder exercise names — edit <code>js/programme-data.js</code> once you have the list from your PT. The programme is expected to fully refresh roughly every 3 months.</p>
+    </div>
+
+    <div id="programme-days" class="programme-days"></div>
+
+  </section>
+
   <footer class="disclaimer">
     <p>Standards here are general estimates built from commonly published bodyweight-multiplier strength charts — not a medical or federation-certified standard. Use them as a rough compass, not a verdict. Numbers are editable in <code>js/standards.js</code>.</p>
     <p class="credit">True Strength — made by Connor Porter</p>
@@ -140,5 +162,8 @@
 
 <script src="js/standards.js"></script>
 <script src="js/app.js"></script>
+<script src="js/programme-data.js"></script>
+<script src="js/programme.js"></script>
+<script src="js/tabs.js"></script>
 </body>
 </html>
