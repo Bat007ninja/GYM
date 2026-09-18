@@ -1,16 +1,27 @@
 (function () {
   const STORAGE_KEY = 'true-strength-programme-state-v1';
+  const MAX_HISTORY = 20;
   const daysEl = document.getElementById('programme-days');
   const resetBtn = document.getElementById('reset-programme-btn');
 
   if (!daysEl) return; // programme markup not present on this page
 
   function loadState() {
+    let raw;
     try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      raw = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     } catch (e) {
       return {};
     }
+    // Migrate the old single-note format (one overwritable box, no dates)
+    // into a dated history so nobody's existing entries just vanish.
+    Object.values(raw).forEach((entry) => {
+      if (entry && !entry.history) {
+        entry.history = entry.note ? [{ date: null, value: entry.note }] : [];
+        delete entry.note;
+      }
+    });
+    return raw;
   }
 
   function saveState(state) {
@@ -19,6 +30,16 @@
     } catch (e) {
       // Private browsing / storage disabled - progress just won't persist.
     }
+  }
+
+  function getEntry(id) {
+    return state[id] || { done: false, history: [] };
+  }
+
+  function formatDate(iso) {
+    if (!iso) return 'earlier';
+    const d = new Date(iso);
+    return d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
   }
 
   let state = loadState();
@@ -65,7 +86,7 @@
     const row = document.createElement('div');
     row.className = 'exercise-row';
 
-    const entry = state[ex.id] || { done: false, note: '' };
+    const entry = getEntry(ex.id);
 
     const checkLabel = document.createElement('label');
     checkLabel.className = 'exercise-check';
@@ -73,7 +94,7 @@
     checkbox.type = 'checkbox';
     checkbox.checked = !!entry.done;
     checkbox.addEventListener('change', () => {
-      const current = state[ex.id] || { done: false, note: '' };
+      const current = getEntry(ex.id);
       current.done = checkbox.checked;
       state[ex.id] = current;
       saveState(state);
@@ -96,20 +117,84 @@
       meta.appendChild(repsSpan);
     }
 
-    const noteInput = document.createElement('input');
-    noteInput.type = 'text';
-    noteInput.className = 'weight-note';
-    noteInput.placeholder = 'weight / reps';
-    noteInput.value = entry.note || '';
-    noteInput.addEventListener('input', () => {
-      const current = state[ex.id] || { done: false, note: '' };
-      current.note = noteInput.value;
+    const logInput = document.createElement('input');
+    logInput.type = 'text';
+    logInput.className = 'weight-note';
+    logInput.placeholder = 'log weight / reps';
+
+    const logBtn = document.createElement('button');
+    logBtn.type = 'button';
+    logBtn.className = 'log-btn';
+    logBtn.textContent = 'Log';
+    logBtn.setAttribute('aria-label', `Log a result for ${ex.name}`);
+
+    function addLogEntry() {
+      const value = logInput.value.trim();
+      if (!value) return;
+      const current = getEntry(ex.id);
+      current.history = current.history || [];
+      current.history.unshift({ date: new Date().toISOString(), value });
+      if (current.history.length > MAX_HISTORY) current.history.length = MAX_HISTORY;
       state[ex.id] = current;
       saveState(state);
-    });
-    meta.appendChild(noteInput);
+      logInput.value = '';
+      const newRow = renderExercise(ex);
+      row.replaceWith(newRow);
+    }
 
+    logInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addLogEntry();
+      }
+    });
+    logBtn.addEventListener('click', addLogEntry);
+
+    meta.appendChild(logInput);
+    meta.appendChild(logBtn);
     row.appendChild(meta);
+
+    const history = entry.history || [];
+    if (history.length > 0) {
+      const last = document.createElement('p');
+      last.className = 'last-logged';
+      last.textContent = `Last: ${history[0].value} · ${formatDate(history[0].date)}`;
+      row.appendChild(last);
+    }
+
+    if (history.length > 1) {
+      const details = document.createElement('details');
+      details.className = 'history-details';
+      const summary = document.createElement('summary');
+      summary.textContent = `History (${history.length})`;
+      details.appendChild(summary);
+
+      const list = document.createElement('ul');
+      list.className = 'history-list';
+      history.forEach((h, i) => {
+        const li = document.createElement('li');
+        const text = document.createElement('span');
+        text.textContent = `${h.value} · ${formatDate(h.date)}`;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'history-delete';
+        del.textContent = '×';
+        del.setAttribute('aria-label', 'Delete this log entry');
+        del.addEventListener('click', () => {
+          const current = getEntry(ex.id);
+          current.history.splice(i, 1);
+          state[ex.id] = current;
+          saveState(state);
+          const newRow = renderExercise(ex);
+          row.replaceWith(newRow);
+        });
+        li.appendChild(text);
+        li.appendChild(del);
+        list.appendChild(li);
+      });
+      details.appendChild(list);
+      row.appendChild(details);
+    }
 
     if (entry.done) row.classList.add('is-done');
 
@@ -118,7 +203,7 @@
 
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      if (!confirm('Clear all ticked exercises and notes? This cannot be undone.')) return;
+      if (!confirm('Clear all ticked exercises and logged history? This cannot be undone.')) return;
       state = {};
       saveState(state);
       render();

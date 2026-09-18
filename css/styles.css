@@ -596,3 +596,72 @@ fieldset.lifts legend {
   font-size: 0.82rem;
   padding: 6px 8px;
 }
+
+.log-btn {
+  flex-shrink: 0;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  border-radius: 7px;
+  border: none;
+  background: var(--series-1);
+  color: #fff;
+  cursor: pointer;
+}
+
+.log-btn:hover { filter: brightness(1.08); }
+
+.last-logged {
+  margin: 0;
+  padding-left: 25px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.history-details {
+  padding-left: 25px;
+}
+
+.history-details summary {
+  font-size: 0.76rem;
+  color: var(--series-1);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.history-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.history-delete {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.history-delete:hover {
+  background: var(--gridline);
+  color: var(--text-primary);
+}
