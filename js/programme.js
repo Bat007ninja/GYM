@@ -80,10 +80,21 @@
       row.classList.toggle('is-done', checkbox.checked);
     });
     const nameSpan = document.createElement('span');
+    nameSpan.className = 'exercise-name';
     nameSpan.textContent = ex.name;
     checkLabel.appendChild(checkbox);
     checkLabel.appendChild(nameSpan);
     row.appendChild(checkLabel);
+
+    const meta = document.createElement('div');
+    meta.className = 'exercise-meta';
+
+    if (ex.reps) {
+      const repsSpan = document.createElement('span');
+      repsSpan.className = 'exercise-target';
+      repsSpan.textContent = ex.reps;
+      meta.appendChild(repsSpan);
+    }
 
     const noteInput = document.createElement('input');
     noteInput.type = 'text';
@@ -96,7 +107,9 @@
       state[ex.id] = current;
       saveState(state);
     });
-    row.appendChild(noteInput);
+    meta.appendChild(noteInput);
+
+    row.appendChild(meta);
 
     if (entry.done) row.classList.add('is-done');
 

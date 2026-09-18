@@ -531,17 +531,19 @@ fieldset.lifts legend {
 
 .exercise-row {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 0;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
+}
+
+.exercise-row + .exercise-row {
+  border-top: 1px solid var(--gridline);
 }
 
 .exercise-check {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-  flex: 1;
-  min-width: 0;
   font-size: 0.88rem;
   cursor: pointer;
 }
@@ -550,22 +552,47 @@ fieldset.lifts legend {
   width: 17px;
   height: 17px;
   flex-shrink: 0;
+  margin-top: 1px;
   accent-color: var(--series-1);
   cursor: pointer;
 }
 
-.exercise-check span {
-  overflow-wrap: anywhere;
+.exercise-name {
+  flex: 1;
+  overflow-wrap: break-word;
 }
 
-.exercise-row.is-done .exercise-check span {
+.exercise-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 25px;
+}
+
+.exercise-target {
+  flex-shrink: 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--page-plane);
+  border: 1px solid var(--gridline);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.exercise-row.is-done .exercise-name {
   color: var(--text-muted);
   text-decoration: line-through;
 }
 
+.exercise-row.is-done .exercise-target {
+  opacity: 0.6;
+}
+
 .weight-note {
-  width: 96px;
-  flex-shrink: 0;
+  flex: 1;
+  max-width: 140px;
   font-size: 0.82rem;
   padding: 6px 8px;
 }
