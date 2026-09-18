@@ -7,10 +7,12 @@
  *   Block C - choose 2-3 of 3
  * Same block shape every day; each day uses different exercises.
  *
- * TO UPDATE: each exercise is `ex('Name', 'target reps')` - edit the name
- * or reps, add/remove entries, or swap in a new day entirely. block1 needs
- * 2 exercises, block2 and block3 need 3 each. Nothing else in the app
- * needs to change.
+ * All 6 days below are the real programme from Top Condition PT.
+ *
+ * TO UPDATE (next ~3-month refresh): each exercise is `ex('Name', 'target
+ * reps')` - edit the name or reps, add/remove entries, or swap in a new
+ * day entirely. block1 needs 2 exercises, block2 and block3 need 3 each.
+ * Nothing else in the app needs to change.
  */
 
 function ex(name, reps) {
@@ -106,18 +108,18 @@ const PROGRAMME_DAYS = [
   {
     label: 'Saturday',
     block1: [
-      ex('Placeholder — Sat Block A, Option A', ''),
-      ex('Placeholder — Sat Block A, Option B', ''),
+      ex('Pendlay Row Variation (lats or upper back)', '8-15'),
+      ex('Snatch Grip Smith Glute & Ham Ext', '8-15'),
     ],
     block2: [
-      ex('Placeholder — Sat Block B, Option A', ''),
-      ex('Placeholder — Sat Block B, Option B', ''),
-      ex('Placeholder — Sat Block B, Option C', ''),
+      ex('Smith Sumo Box Squat', '5-8'),
+      ex('DB Floor Press Variation', '15-20'),
+      ex('African Curls', '8-15'),
     ],
     block3: [
-      ex('Placeholder — Sat Block C, Option A', ''),
-      ex('Placeholder — Sat Block C, Option B', ''),
-      ex('Placeholder — Sat Block C, Option C', ''),
+      ex('30° Cable Skullcrusher', '8-15'),
+      ex('Lat Raise (thumbs down)', '8-15'),
+      ex('40° Back Extension Adductor Lifts', '5-8 e/s'),
     ],
   },
 ];
