@@ -1,6 +1,10 @@
 (function () {
   const STORAGE_KEY = 'true-strength-programme-state-v1';
   const MAX_HISTORY = 20;
+  // Set this after deploying the Cloudflare Worker in worker/ - see
+  // worker/README.md. Left blank, the AI Insight button explains that
+  // clearly instead of failing silently.
+  const AI_INSIGHT_ENDPOINT = '';
   const daysEl = document.getElementById('programme-days');
   const resetBtn = document.getElementById('reset-programme-btn');
 
@@ -301,6 +305,70 @@
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Programme History');
       XLSX.writeFile(wb, `true-strength-history-${todayStamp()}.xlsx`);
+    });
+  }
+
+  function buildInsightSummary() {
+    const lines = [];
+    PROGRAMME.forEach((day) => {
+      day.blocks.forEach((block) => {
+        block.exercises.forEach((ex) => {
+          const entry = getEntry(ex.id);
+          const history = (entry.history || []).slice(0, 5); // most recent 5
+          if (history.length === 0) return;
+          const logged = history
+            .map((h) => `${h.value}${h.date ? ` (${formatDate(h.date)})` : ''}`)
+            .join(', ');
+          lines.push(`${day.label} - ${ex.name} [target ${ex.reps || 'n/a'}]: ${logged}`);
+        });
+      });
+    });
+    return lines.join('\n');
+  }
+
+  const aiInsightBtn = document.getElementById('ai-insight-btn');
+  const aiInsightResult = document.getElementById('ai-insight-result');
+
+  if (aiInsightBtn && aiInsightResult) {
+    aiInsightBtn.addEventListener('click', async () => {
+      aiInsightResult.hidden = false;
+
+      if (!AI_INSIGHT_ENDPOINT) {
+        aiInsightResult.className = 'ai-insight-result error';
+        aiInsightResult.textContent =
+          'AI Insight isn\'t set up yet - this needs a small server component (to keep the API key private). See worker/README.md for the one-time setup.';
+        return;
+      }
+
+      const summary = buildInsightSummary();
+      if (!summary) {
+        aiInsightResult.className = 'ai-insight-result error';
+        aiInsightResult.textContent = 'Log at least one exercise result first, then try again.';
+        return;
+      }
+
+      aiInsightResult.className = 'ai-insight-result loading';
+      aiInsightResult.textContent = 'Thinking...';
+      aiInsightBtn.disabled = true;
+
+      try {
+        const res = await fetch(AI_INSIGHT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ summary }),
+        });
+        const data = await res.json();
+        if (!res.ok || !data.insight) {
+          throw new Error(data.error || 'Something went wrong.');
+        }
+        aiInsightResult.className = 'ai-insight-result';
+        aiInsightResult.textContent = data.insight;
+      } catch (e) {
+        aiInsightResult.className = 'ai-insight-result error';
+        aiInsightResult.textContent = `Couldn't get an insight: ${e.message}`;
+      } finally {
+        aiInsightBtn.disabled = false;
+      }
     });
   }
 

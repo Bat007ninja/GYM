@@ -473,6 +473,39 @@ fieldset.lifts legend {
   background: color-mix(in srgb, #b3261e 8%, transparent);
 }
 
+.secondary-btn.accent {
+  color: #fff;
+  background: var(--series-1);
+  border-color: var(--series-1);
+}
+
+.secondary-btn.accent:hover {
+  filter: brightness(1.08);
+  border-color: var(--series-1);
+}
+
+.ai-insight-result {
+  margin: 14px 0 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--page-plane);
+  border: 1px solid var(--gridline);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  white-space: pre-line;
+}
+
+.ai-insight-result.loading {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.ai-insight-result.error {
+  color: #b3261e;
+  border-color: #e8b4af;
+  background: color-mix(in srgb, #b3261e 6%, transparent);
+}
+
 /* Programme */
 .programme-intro { margin-bottom: 20px; }
 

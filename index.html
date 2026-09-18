@@ -145,6 +145,7 @@
           <p class="chart-note">Same block structure every session — Block A: choose 1 of 2. Block B: choose 2–3 of 3. Block C: choose 2–3 of 3 — with different exercises each day, Monday–Saturday. Tick off what you did and log your weight/reps each time — it builds a dated history per exercise, saved on this device.</p>
         </div>
         <div class="programme-actions">
+          <button type="button" class="secondary-btn accent" id="ai-insight-btn">✨ Get AI Insight</button>
           <button type="button" class="secondary-btn" id="export-json-btn">Backup (JSON)</button>
           <button type="button" class="secondary-btn" id="import-json-btn">Restore backup</button>
           <input type="file" id="import-json-input" accept="application/json" hidden>
@@ -152,6 +153,7 @@
           <button type="button" class="secondary-btn danger" id="reset-programme-btn">Reset progress</button>
         </div>
       </div>
+      <div id="ai-insight-result" class="ai-insight-result" hidden></div>
       <p class="placeholder-note" id="placeholder-note">All 6 days are the real programme from Top Condition PT. It's expected to fully refresh roughly every 3 months — when it does, update <code>js/programme-data.js</code>. Your logged history lives only in this browser — use "Backup" to save a copy you can restore on another device, or "Export to Excel" to view/analyse it.</p>
     </div>
 
