@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>True Strength — Relative &amp; Absolute Strength Calculator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a78d6'/%3E%3Crect x='4' y='14' width='24' height='4' rx='1.5' fill='white'/%3E%3Crect x='2' y='10' width='4' height='12' rx='1' fill='white'/%3E%3Crect x='26' y='10' width='4' height='12' rx='1' fill='white'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div class="page">
 
   <header class="hero">
-    <h1>True Strength</h1>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <h1>True Strength</h1>
+    </div>
     <p class="sub">Measure relative &amp; absolute strength for men and women. See how far you are from your goal — or from lifting your own bodyweight.</p>
+    <p class="byline">by Connor Porter</p>
   </header>
 
   <main class="layout">
@@ -47,27 +52,59 @@
           <legend>Lifts (leave blank to skip)</legend>
 
           <div class="lift-row" data-lift="squat">
-            <label>Squat</label>
-            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
-            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+            <div class="lift-row-label">Squat</div>
+            <div class="lift-row-inputs">
+              <div class="input-group">
+                <label for="squat-current">Current 1RM</label>
+                <input type="number" id="squat-current" min="0" step="0.5" class="lift-input" placeholder="e.g. 100">
+              </div>
+              <div class="input-group">
+                <label for="squat-goal">Goal <span>(optional)</span></label>
+                <input type="number" id="squat-goal" min="0" step="0.5" class="goal-input" placeholder="e.g. 120">
+              </div>
+            </div>
           </div>
 
           <div class="lift-row" data-lift="bench">
-            <label>Bench Press</label>
-            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
-            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+            <div class="lift-row-label">Bench Press</div>
+            <div class="lift-row-inputs">
+              <div class="input-group">
+                <label for="bench-current">Current 1RM</label>
+                <input type="number" id="bench-current" min="0" step="0.5" class="lift-input" placeholder="e.g. 70">
+              </div>
+              <div class="input-group">
+                <label for="bench-goal">Goal <span>(optional)</span></label>
+                <input type="number" id="bench-goal" min="0" step="0.5" class="goal-input" placeholder="e.g. 90">
+              </div>
+            </div>
           </div>
 
           <div class="lift-row" data-lift="deadlift">
-            <label>Deadlift</label>
-            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
-            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+            <div class="lift-row-label">Deadlift</div>
+            <div class="lift-row-inputs">
+              <div class="input-group">
+                <label for="deadlift-current">Current 1RM</label>
+                <input type="number" id="deadlift-current" min="0" step="0.5" class="lift-input" placeholder="e.g. 120">
+              </div>
+              <div class="input-group">
+                <label for="deadlift-goal">Goal <span>(optional)</span></label>
+                <input type="number" id="deadlift-goal" min="0" step="0.5" class="goal-input" placeholder="e.g. 140">
+              </div>
+            </div>
           </div>
 
           <div class="lift-row" data-lift="overheadPress">
-            <label>Overhead Press</label>
-            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
-            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+            <div class="lift-row-label">Overhead Press</div>
+            <div class="lift-row-inputs">
+              <div class="input-group">
+                <label for="ohp-current">Current 1RM</label>
+                <input type="number" id="ohp-current" min="0" step="0.5" class="lift-input" placeholder="e.g. 45">
+              </div>
+              <div class="input-group">
+                <label for="ohp-goal">Goal <span>(optional)</span></label>
+                <input type="number" id="ohp-goal" min="0" step="0.5" class="goal-input" placeholder="e.g. 55">
+              </div>
+            </div>
           </div>
         </fieldset>
 
@@ -96,6 +133,7 @@
 
   <footer class="disclaimer">
     <p>Standards here are general estimates built from commonly published bodyweight-multiplier strength charts — not a medical or federation-certified standard. Use them as a rough compass, not a verdict. Numbers are editable in <code>js/standards.js</code>.</p>
+    <p class="credit">True Strength — made by Connor Porter</p>
   </footer>
 
 </div>

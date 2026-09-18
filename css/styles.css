@@ -52,29 +52,57 @@
 }
 
 * { box-sizing: border-box; }
+*, *::before, *::after { min-width: 0; }
 
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--page-plane);
   color: var(--text-primary);
+  line-height: 1.45;
 }
 
 .page {
   max-width: 960px;
   margin: 0 auto;
-  padding: 24px 16px 48px;
+  padding: 32px 16px 56px;
+}
+
+.hero { margin-bottom: 28px; }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--series-1);
+  background-image: linear-gradient(155deg, var(--series-1), var(--band-5));
+  flex-shrink: 0;
 }
 
 .hero h1 {
-  font-size: 2rem;
-  margin: 0 0 4px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .hero .sub {
   color: var(--text-secondary);
-  margin: 0 0 24px;
+  margin: 10px 0 4px;
   max-width: 60ch;
+}
+
+.hero .byline {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin: 0;
 }
 
 .layout {
@@ -93,13 +121,17 @@ body {
 .card {
   background: var(--surface-1);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 1px 2px rgba(11,11,11,0.04), 0 8px 24px -16px rgba(11,11,11,0.12);
 }
 
 .card h2 {
   margin-top: 0;
-  font-size: 1.15rem;
+  margin-bottom: 18px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .field-row {
@@ -124,18 +156,28 @@ label {
 
 input, select {
   font: inherit;
-  padding: 8px 10px;
+  width: 100%;
+  padding: 9px 10px;
   border-radius: 8px;
   border: 1px solid var(--baseline);
   background: var(--surface-1);
   color: var(--text-primary);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+input:hover, select:hover { border-color: var(--text-muted); }
+
+input:focus-visible, select:focus-visible {
+  outline: none;
+  border-color: var(--series-1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--series-1) 25%, transparent);
 }
 
 fieldset.lifts {
   border: 1px solid var(--gridline);
   border-radius: 10px;
-  padding: 14px;
-  margin: 0 0 16px;
+  padding: 16px;
+  margin: 0 0 18px;
 }
 
 fieldset.lifts legend {
@@ -145,31 +187,65 @@ fieldset.lifts legend {
 }
 
 .lift-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--gridline);
 }
 
-.lift-row label {
-  color: var(--text-primary);
-  font-size: 0.95rem;
+.lift-row:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
 }
+
+.lift-row-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.lift-row-inputs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.input-group label span { text-transform: none; letter-spacing: normal; }
 
 .primary-btn {
   width: 100%;
-  padding: 10px 16px;
+  padding: 12px 16px;
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
   background: var(--series-1);
   color: #fff;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   cursor: pointer;
+  box-shadow: 0 4px 14px -4px color-mix(in srgb, var(--series-1) 55%, transparent);
+  transition: filter 0.12s ease, transform 0.06s ease;
 }
 
 .primary-btn:hover { filter: brightness(1.08); }
+.primary-btn:active { transform: translateY(1px); }
+.primary-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--series-1) 35%, transparent);
+}
 
 .lift-results {
   display: flex;
@@ -255,6 +331,12 @@ fieldset.lifts legend {
   margin-bottom: 8px;
 }
 
+@media (max-width: 480px) {
+  .band-labels span:not(:first-child):not(:last-child) {
+    display: none;
+  }
+}
+
 .progress-block {
   margin-top: 10px;
 }
@@ -318,4 +400,10 @@ fieldset.lifts legend {
   background: var(--gridline);
   padding: 1px 5px;
   border-radius: 4px;
+}
+
+.disclaimer .credit {
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
