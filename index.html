@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>True Strength — Relative &amp; Absolute Strength Calculator</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <h1>True Strength</h1>
+    <p class="sub">Measure relative &amp; absolute strength for men and women. See how far you are from your goal — or from lifting your own bodyweight.</p>
+  </header>
+
+  <main class="layout">
+
+    <section class="card form-card" aria-labelledby="form-heading">
+      <h2 id="form-heading">Your numbers</h2>
+
+      <form id="strength-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="sex">Sex</label>
+            <select id="sex" name="sex">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="unit">Units</label>
+            <select id="unit" name="unit">
+              <option value="kg">kg</option>
+              <option value="lb">lb</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="bodyweight">Bodyweight</label>
+            <input type="number" id="bodyweight" name="bodyweight" min="0" step="0.1" placeholder="e.g. 70" required>
+          </div>
+        </div>
+
+        <fieldset class="lifts">
+          <legend>Lifts (leave blank to skip)</legend>
+
+          <div class="lift-row" data-lift="squat">
+            <label>Squat</label>
+            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
+            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+          </div>
+
+          <div class="lift-row" data-lift="bench">
+            <label>Bench Press</label>
+            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
+            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+          </div>
+
+          <div class="lift-row" data-lift="deadlift">
+            <label>Deadlift</label>
+            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
+            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+          </div>
+
+          <div class="lift-row" data-lift="overheadPress">
+            <label>Overhead Press</label>
+            <input type="number" min="0" step="0.5" class="lift-input" placeholder="current 1RM">
+            <input type="number" min="0" step="0.5" class="goal-input" placeholder="goal (optional)">
+          </div>
+        </fieldset>
+
+        <button type="submit" class="primary-btn">Calculate</button>
+      </form>
+    </section>
+
+    <section class="card results-card" id="results" aria-live="polite" hidden>
+      <h2>Results</h2>
+
+      <div id="lift-results" class="lift-results"></div>
+
+      <div class="total-block" id="total-block" hidden>
+        <h3>Powerlifting Total (Squat + Bench + Deadlift)</h3>
+        <div id="total-result"></div>
+      </div>
+
+      <div class="chart-block">
+        <h3>Strength profile</h3>
+        <p class="chart-note">Each spoke is one lift, scored 0–100 against the Untrained→Elite scale for your sex and bodyweight.</p>
+        <div id="radar-chart" class="radar-wrap"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="disclaimer">
+    <p>Standards here are general estimates built from commonly published bodyweight-multiplier strength charts — not a medical or federation-certified standard. Use them as a rough compass, not a verdict. Numbers are editable in <code>js/standards.js</code>.</p>
+  </footer>
+
+</div>
+
+<script src="js/standards.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
