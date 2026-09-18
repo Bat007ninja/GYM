@@ -83,12 +83,11 @@ body {
 }
 
 .brand-mark {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
+  display: block;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
-  background: var(--series-1);
-  background-image: linear-gradient(155deg, var(--series-1), var(--band-5));
+  object-fit: cover;
   flex-shrink: 0;
 }
 

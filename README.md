@@ -1,4 +1,4 @@
-# True Strength
+# True Strength AI
 
 A small, static web app for measuring **relative** and **absolute** strength
 in a gym setting — for both men and women — and seeing how far a lift is
