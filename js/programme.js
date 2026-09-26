@@ -1,10 +1,7 @@
 (function () {
   const STORAGE_KEY = 'true-strength-programme-state-v1';
   const MAX_HISTORY = 20;
-  // Set this after deploying the Cloudflare Worker in worker/ - see
-  // worker/README.md. Left blank, the AI Insight button explains that
-  // clearly instead of failing silently.
-  const AI_INSIGHT_ENDPOINT = '';
+  const AI_INSIGHT_ENDPOINT = 'https://true-strength-ai-insight.conno-porter.workers.dev';
   const daysEl = document.getElementById('programme-days');
   const resetBtn = document.getElementById('reset-programme-btn');
 
