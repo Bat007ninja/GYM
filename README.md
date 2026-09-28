@@ -15,7 +15,7 @@ Deadlift, Overhead Press) as a 1-rep max, and the app shows for each lift:
 - **Absolute strength** — the weight itself.
 - **Relative strength** — the lift as a multiple of your bodyweight
   (e.g. `1.75× bodyweight`).
-- **A classification** on a 6-tier scale (Untrained → Beginner → Novice →
+- **A classification** on a 6-tier scale (Untrained → Beginner → Amateur →
   Intermediate → Advanced → Elite), with a visual band bar and how much
   more weight is needed to reach the next tier.
 - **Distance to your own bodyweight** — the classic "can you lift what you
@@ -32,7 +32,7 @@ Deadlift, Overhead Press) as a 1-rep max, and the app shows for each lift:
 
 Standards live in [`js/standards.js`](js/standards.js) as bodyweight
 multipliers per lift, per sex — five thresholds each (the ratio needed to
-be classed Beginner / Novice / Intermediate / Advanced / Elite). Below the
+be classed Beginner / Amateur / Intermediate / Advanced / Elite). Below the
 first threshold is "Untrained."
 
 These are general estimates assembled from the shape of commonly published

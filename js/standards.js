@@ -3,7 +3,7 @@
  *
  * Every ratio below is (1-rep-max lift weight) / (bodyweight), using the
  * same units for both. Each lift stores 5 thresholds - the minimum ratio
- * required to be classed Beginner, Novice, Intermediate, Advanced, and
+ * required to be classed Beginner, Amateur, Intermediate, Advanced, and
  * Elite respectively. Below the first threshold you're "Untrained"; the
  * implicit floor is 0, so LEVELS has one more entry than each threshold
  * array.
@@ -16,7 +16,7 @@
  * calibrate against a standard you trust more.
  */
 
-const LEVELS = ['Untrained', 'Beginner', 'Novice', 'Intermediate', 'Advanced', 'Elite'];
+const LEVELS = ['Untrained', 'Beginner', 'Amateur', 'Intermediate', 'Advanced', 'Elite'];
 
 const STANDARDS = {
   male: {
