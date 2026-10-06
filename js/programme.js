@@ -323,7 +323,7 @@
     return lines.join('\n');
   }
 
-  const AI_NAME = 'Arnold';
+  const AI_NAME = 'Pelé';
 
   function escapeHtml(str) {
     const div = document.createElement('div');
