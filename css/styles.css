@@ -506,6 +506,23 @@ fieldset.lifts legend {
   background: color-mix(in srgb, #b3261e 6%, transparent);
 }
 
+.ai-insight-name {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--series-1);
+}
+
+.ai-insight-body {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.ai-insight-result.loading .ai-insight-body {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 /* Programme */
 .programme-intro { margin-bottom: 20px; }
 

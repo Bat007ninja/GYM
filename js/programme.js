@@ -323,6 +323,26 @@
     return lines.join('\n');
   }
 
+  const AI_NAME = 'Arnold';
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderPlainMessage(el, className, text) {
+    el.className = `ai-insight-result ${className}`;
+    el.textContent = text;
+  }
+
+  function renderArnoldMessage(el, className, bodyText) {
+    el.className = `ai-insight-result ${className}`;
+    el.innerHTML =
+      `<p class="ai-insight-name">👋 Hey, I'm ${AI_NAME} — your AI training assistant</p>` +
+      `<p class="ai-insight-body">${escapeHtml(bodyText)}</p>`;
+  }
+
   const aiInsightBtn = document.getElementById('ai-insight-btn');
   const aiInsightResult = document.getElementById('ai-insight-result');
 
@@ -331,21 +351,21 @@
       aiInsightResult.hidden = false;
 
       if (!AI_INSIGHT_ENDPOINT) {
-        aiInsightResult.className = 'ai-insight-result error';
-        aiInsightResult.textContent =
-          'AI Insight isn\'t set up yet - this needs a small server component (to keep the API key private). See worker/README.md for the one-time setup.';
+        renderPlainMessage(
+          aiInsightResult,
+          'error',
+          'AI Insight isn\'t set up yet - this needs a small server component (to keep the API key private). See worker/README.md for the one-time setup.'
+        );
         return;
       }
 
       const summary = buildInsightSummary();
       if (!summary) {
-        aiInsightResult.className = 'ai-insight-result error';
-        aiInsightResult.textContent = 'Log at least one exercise result first, then try again.';
+        renderPlainMessage(aiInsightResult, 'error', 'Log at least one exercise result first, then try again.');
         return;
       }
 
-      aiInsightResult.className = 'ai-insight-result loading';
-      aiInsightResult.textContent = 'Thinking...';
+      renderArnoldMessage(aiInsightResult, 'loading', 'Thinking...');
       aiInsightBtn.disabled = true;
 
       try {
@@ -358,11 +378,9 @@
         if (!res.ok || !data.insight) {
           throw new Error(data.error || 'Something went wrong.');
         }
-        aiInsightResult.className = 'ai-insight-result';
-        aiInsightResult.textContent = data.insight;
+        renderArnoldMessage(aiInsightResult, '', data.insight);
       } catch (e) {
-        aiInsightResult.className = 'ai-insight-result error';
-        aiInsightResult.textContent = `Couldn't get an insight: ${e.message}`;
+        renderPlainMessage(aiInsightResult, 'error', `Couldn't get an insight: ${e.message}`);
       } finally {
         aiInsightBtn.disabled = false;
       }
