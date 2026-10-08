@@ -19,12 +19,15 @@ const SYSTEM_PROMPT =
   "a lifter's logged workout history (exercise names, target rep ranges, and " +
   'what they actually logged, with dates). Rep-range notation like "5x3" ' +
   'means SETS x REPS - 5 sets of 3 reps each - not 5 reps done 3 times; read ' +
-  'all such notation that way. Write a short note (120 words max, plain text, ' +
-  'no markdown headers) covering: whether they seem to be progressing, ' +
-  'plateaued, or should consider a deload on any specific lift, and one ' +
-  "concrete, encouraging suggestion. If there isn't enough logged history " +
-  'yet to say anything meaningful, say so briefly and encourage them to keep ' +
-  'logging.';
+  'all such notation that way. All weights are in KILOGRAMS (kg) - the ' +
+  'logged numbers often have no unit written (e.g. "60x3-4" means 60kg for ' +
+  '3-4 reps); always write weights with "kg", and never say or imply "lbs" ' +
+  'or "pounds" under any circumstances, even if you are unsure of the unit. ' +
+  'Write a short note (120 words max, plain text, no markdown headers) ' +
+  'covering: whether they seem to be progressing, plateaued, or should ' +
+  'consider a deload on any specific lift, and one concrete, encouraging ' +
+  "suggestion. If there isn't enough logged history yet to say anything " +
+  'meaningful, say so briefly and encourage them to keep logging.';
 
 function corsHeaders() {
   return {
