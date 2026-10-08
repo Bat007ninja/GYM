@@ -3,6 +3,7 @@
   const sections = {
     calculator: document.getElementById('page-calculator'),
     programme: document.getElementById('page-programme'),
+    protein: document.getElementById('page-protein'),
   };
 
   buttons.forEach((btn) => {

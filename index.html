@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>True Strength AI — Relative &amp; Absolute Strength Calculator</title>
 <link rel="icon" href="assets/logo.png">
-<link rel="stylesheet" href="css/styles.css?v=20261006">
+<link rel="stylesheet" href="css/styles.css?v=20261008">
 </head>
 <body>
 <div class="page">
@@ -22,6 +22,7 @@
   <nav class="tabs" aria-label="Sections">
     <button type="button" class="tab-btn active" data-page="calculator" aria-current="page">Strength Calculator</button>
     <button type="button" class="tab-btn" data-page="programme">My Programme</button>
+    <button type="button" class="tab-btn" data-page="protein">Protein</button>
   </nav>
 
   <main class="layout page-section" id="page-calculator">
@@ -161,6 +162,72 @@
 
   </section>
 
+  <section class="page-section" id="page-protein" hidden>
+
+    <div class="card protein-intro">
+      <h2>Protein Tracker</h2>
+      <p class="chart-note">Log protein for today — type the grams straight off a label, or enter how much you ate and its protein-per-100g and let it do the maths. Resets automatically each day; saved on this device.</p>
+    </div>
+
+    <div class="protein-layout">
+
+      <section class="card protein-form-card" aria-labelledby="protein-form-heading">
+        <h3 id="protein-form-heading">Add food</h3>
+
+        <form id="protein-form">
+          <div class="field">
+            <label for="protein-food-name">Food (optional)</label>
+            <input type="text" id="protein-food-name" placeholder="e.g. Chicken breast">
+          </div>
+
+          <div class="protein-mode-toggle" role="radiogroup" aria-label="How to enter protein">
+            <button type="button" class="mode-btn active" data-mode="direct" aria-pressed="true">Enter protein directly</button>
+            <button type="button" class="mode-btn" data-mode="per100" aria-pressed="false">Calculate from per 100g</button>
+          </div>
+
+          <div class="protein-mode-panel" data-mode-panel="direct">
+            <div class="field">
+              <label for="protein-direct-grams">Protein (g)</label>
+              <input type="number" id="protein-direct-grams" min="0" step="0.1" placeholder="e.g. 25">
+            </div>
+          </div>
+
+          <div class="protein-mode-panel" data-mode-panel="per100" hidden>
+            <div class="field-row">
+              <div class="field">
+                <label for="protein-amount">Amount eaten (g)</label>
+                <input type="number" id="protein-amount" min="0" step="1" placeholder="e.g. 213">
+              </div>
+              <div class="field">
+                <label for="protein-per100">Protein per 100g</label>
+                <input type="number" id="protein-per100" min="0" step="0.1" placeholder="e.g. 10">
+              </div>
+            </div>
+            <p class="protein-preview" id="protein-preview">= 0g protein</p>
+          </div>
+
+          <button type="submit" class="primary-btn">Add to today's log</button>
+        </form>
+      </section>
+
+      <section class="card protein-log-card" aria-labelledby="protein-log-heading">
+        <div class="protein-log-head">
+          <h3 id="protein-log-heading">Today</h3>
+          <button type="button" class="secondary-btn danger" id="protein-clear-btn">Clear today</button>
+        </div>
+
+        <div class="protein-total-card">
+          <div class="protein-total-label">Total protein today</div>
+          <div class="protein-total-value" id="protein-total">0g</div>
+        </div>
+
+        <div id="protein-entries" class="protein-entries"></div>
+      </section>
+
+    </div>
+
+  </section>
+
   <footer class="disclaimer">
     <p>Standards here are general estimates built from commonly published bodyweight-multiplier strength charts — not a medical or federation-certified standard. Use them as a rough compass, not a verdict. Numbers are editable in <code>js/standards.js</code>.</p>
     <p class="credit">True Strength AI — made by Connor</p>
@@ -168,11 +235,12 @@
 
 </div>
 
-<script src="js/standards.js?v=20261006"></script>
-<script src="js/app.js?v=20261006"></script>
-<script src="js/programme-data.js?v=20261006"></script>
+<script src="js/standards.js?v=20261008"></script>
+<script src="js/app.js?v=20261008"></script>
+<script src="js/programme-data.js?v=20261008"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="js/programme.js?v=20261006"></script>
-<script src="js/tabs.js?v=20261006"></script>
+<script src="js/programme.js?v=20261008"></script>
+<script src="js/protein.js?v=20261008"></script>
+<script src="js/tabs.js?v=20261008"></script>
 </body>
 </html>
