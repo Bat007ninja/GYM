@@ -881,3 +881,62 @@ fieldset.lifts legend {
   padding: 16px 0;
   margin: 0;
 }
+
+.protein-history-card {
+  margin-top: 20px;
+}
+
+.protein-history-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.protein-history {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.protein-history-day {
+  border-bottom: 1px solid var(--gridline);
+}
+
+.protein-history-day:last-child { border-bottom: none; }
+
+.protein-history-day summary {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  list-style: none;
+}
+
+.protein-history-day summary span:first-of-type {
+  flex: 1;
+}
+
+.protein-history-day summary::-webkit-details-marker { display: none; }
+
+.protein-history-day summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 8px;
+  color: var(--text-muted);
+  transition: transform 0.12s ease;
+}
+
+.protein-history-day[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.protein-history-total {
+  color: var(--series-1);
+  font-weight: 700;
+}
+
+.protein-history-day .protein-entries {
+  padding: 0 0 12px 24px;
+}
