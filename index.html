@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>True Strength AI — Relative &amp; Absolute Strength Calculator</title>
 <link rel="icon" href="assets/logo.png">
-<link rel="stylesheet" href="css/styles.css?v=20261009">
+<link rel="stylesheet" href="css/styles.css?v=20261010">
 </head>
 <body>
 <div class="page">
@@ -22,7 +22,7 @@
   <nav class="tabs" aria-label="Sections">
     <button type="button" class="tab-btn active" data-page="calculator" aria-current="page">Strength Calculator</button>
     <button type="button" class="tab-btn" data-page="programme">My Programme</button>
-    <button type="button" class="tab-btn" data-page="protein">Protein</button>
+    <button type="button" class="tab-btn" data-page="protein">Nutrition</button>
   </nav>
 
   <main class="layout page-section" id="page-calculator">
@@ -165,8 +165,8 @@
   <section class="page-section" id="page-protein" hidden>
 
     <div class="card protein-intro">
-      <h2>Protein Tracker</h2>
-      <p class="chart-note">Log protein for today — type the grams straight off a label, or enter how much you ate and its protein-per-100g and let it do the maths. Resets automatically each day; saved on this device.</p>
+      <h2>Nutrition Tracker</h2>
+      <p class="chart-note">Log protein and calories for today — type the numbers straight off a label, or enter how much you ate and the per-100g values and let it do the maths. Made a multi-ingredient meal? Use the Meal Builder once, then re-log it from the dropdown in one click. Resets automatically each day; saved on this device.</p>
     </div>
 
     <div class="protein-layout">
@@ -180,34 +180,55 @@
             <input type="text" id="protein-food-name" placeholder="e.g. Chicken breast">
           </div>
 
-          <div class="protein-mode-toggle" role="radiogroup" aria-label="How to enter protein">
-            <button type="button" class="mode-btn active" data-mode="direct" aria-pressed="true">Enter protein directly</button>
+          <div class="protein-mode-toggle" role="radiogroup" aria-label="How to enter this food">
+            <button type="button" class="mode-btn active" data-mode="direct" aria-pressed="true">Enter directly</button>
             <button type="button" class="mode-btn" data-mode="per100" aria-pressed="false">Calculate from per 100g</button>
           </div>
 
           <div class="protein-mode-panel" data-mode-panel="direct">
-            <div class="field">
-              <label for="protein-direct-grams">Protein (g)</label>
-              <input type="number" id="protein-direct-grams" min="0" step="0.1" placeholder="e.g. 25">
+            <div class="field-row">
+              <div class="field">
+                <label for="protein-direct-grams">Protein (g)</label>
+                <input type="number" id="protein-direct-grams" min="0" step="0.1" placeholder="e.g. 25">
+              </div>
+              <div class="field">
+                <label for="protein-direct-cals">Calories (kcal)</label>
+                <input type="number" id="protein-direct-cals" min="0" step="1" placeholder="e.g. 180">
+              </div>
             </div>
           </div>
 
           <div class="protein-mode-panel" data-mode-panel="per100" hidden>
+            <div class="field">
+              <label for="protein-amount">Amount eaten (g)</label>
+              <input type="number" id="protein-amount" min="0" step="1" placeholder="e.g. 213">
+            </div>
             <div class="field-row">
-              <div class="field">
-                <label for="protein-amount">Amount eaten (g)</label>
-                <input type="number" id="protein-amount" min="0" step="1" placeholder="e.g. 213">
-              </div>
               <div class="field">
                 <label for="protein-per100">Protein per 100g</label>
                 <input type="number" id="protein-per100" min="0" step="0.1" placeholder="e.g. 10">
               </div>
+              <div class="field">
+                <label for="protein-cals-per100">Calories per 100g</label>
+                <input type="number" id="protein-cals-per100" min="0" step="1" placeholder="e.g. 165">
+              </div>
             </div>
-            <p class="protein-preview" id="protein-preview">= 0g protein</p>
+            <p class="protein-preview" id="protein-preview">= 0g protein · 0 kcal</p>
           </div>
 
           <button type="submit" class="primary-btn">Add to today's log</button>
         </form>
+
+        <div class="saved-meal-quicklog">
+          <label for="saved-meal-select">Log a saved meal</label>
+          <div class="saved-meal-row">
+            <select id="saved-meal-select">
+              <option value="">No saved meals yet</option>
+            </select>
+            <button type="button" class="secondary-btn" id="saved-meal-log-btn">Log</button>
+            <button type="button" class="secondary-btn danger" id="saved-meal-delete-btn">Delete</button>
+          </div>
+        </div>
       </section>
 
       <section class="card protein-log-card" aria-labelledby="protein-log-heading">
@@ -216,15 +237,91 @@
           <button type="button" class="secondary-btn danger" id="protein-clear-btn">Clear today</button>
         </div>
 
-        <div class="protein-total-card">
-          <div class="protein-total-label">Total protein today</div>
-          <div class="protein-total-value" id="protein-total">0g</div>
+        <div class="protein-total-row">
+          <div class="protein-total-card">
+            <div class="protein-total-label">Protein today</div>
+            <div class="protein-total-value" id="protein-total">0g</div>
+          </div>
+          <div class="protein-total-card">
+            <div class="protein-total-label">Calories today</div>
+            <div class="protein-total-value" id="cals-total">0 kcal</div>
+          </div>
         </div>
 
         <div id="protein-entries" class="protein-entries"></div>
       </section>
 
     </div>
+
+    <section class="card meal-builder-card" aria-labelledby="meal-builder-heading">
+      <h3 id="meal-builder-heading">Meal Builder</h3>
+      <p class="chart-note">Add each ingredient once, then save the whole thing as a meal — it'll show up in the "Log a saved meal" dropdown above from then on.</p>
+
+      <div class="field">
+        <label for="meal-name">Meal name</label>
+        <input type="text" id="meal-name" placeholder="e.g. Fajitas">
+      </div>
+
+      <div class="meal-ingredient-form">
+        <div class="field">
+          <label for="meal-ing-name">Ingredient (optional)</label>
+          <input type="text" id="meal-ing-name" placeholder="e.g. Chicken breast">
+        </div>
+
+        <div class="protein-mode-toggle" role="radiogroup" aria-label="How to enter this ingredient">
+          <button type="button" class="mode-btn active ing-mode-btn" data-mode="direct" aria-pressed="true">Enter directly</button>
+          <button type="button" class="mode-btn ing-mode-btn" data-mode="per100" aria-pressed="false">Calculate from per 100g</button>
+        </div>
+
+        <div class="protein-mode-panel" data-ing-panel="direct">
+          <div class="field-row">
+            <div class="field">
+              <label for="meal-ing-protein">Protein (g)</label>
+              <input type="number" id="meal-ing-protein" min="0" step="0.1" placeholder="e.g. 25">
+            </div>
+            <div class="field">
+              <label for="meal-ing-cals">Calories (kcal)</label>
+              <input type="number" id="meal-ing-cals" min="0" step="1" placeholder="e.g. 180">
+            </div>
+          </div>
+        </div>
+
+        <div class="protein-mode-panel" data-ing-panel="per100" hidden>
+          <div class="field">
+            <label for="meal-ing-amount">Amount eaten (g)</label>
+            <input type="number" id="meal-ing-amount" min="0" step="1" placeholder="e.g. 213">
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="meal-ing-per100">Protein per 100g</label>
+              <input type="number" id="meal-ing-per100" min="0" step="0.1" placeholder="e.g. 10">
+            </div>
+            <div class="field">
+              <label for="meal-ing-cals-per100">Calories per 100g</label>
+              <input type="number" id="meal-ing-cals-per100" min="0" step="1" placeholder="e.g. 165">
+            </div>
+          </div>
+          <p class="protein-preview" id="meal-ing-preview">= 0g protein · 0 kcal</p>
+        </div>
+
+        <button type="button" class="secondary-btn" id="meal-ing-add-btn">+ Add ingredient</button>
+      </div>
+
+      <div id="meal-ingredients" class="protein-entries"></div>
+
+      <div class="protein-total-row">
+        <div class="protein-total-card">
+          <div class="protein-total-label">Meal total protein</div>
+          <div class="protein-total-value" id="meal-total-protein">0g</div>
+        </div>
+        <div class="protein-total-card">
+          <div class="protein-total-label">Meal total calories</div>
+          <div class="protein-total-value" id="meal-total-cals">0 kcal</div>
+        </div>
+      </div>
+
+      <button type="button" class="primary-btn" id="meal-save-btn">Save meal &amp; log today</button>
+    </section>
 
     <section class="card protein-history-card" id="protein-history-card" aria-labelledby="protein-history-heading" hidden>
       <h3 id="protein-history-heading">Past days</h3>
@@ -240,12 +337,12 @@
 
 </div>
 
-<script src="js/standards.js?v=20261009"></script>
-<script src="js/app.js?v=20261009"></script>
-<script src="js/programme-data.js?v=20261009"></script>
+<script src="js/standards.js?v=20261010"></script>
+<script src="js/app.js?v=20261010"></script>
+<script src="js/programme-data.js?v=20261010"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="js/programme.js?v=20261009"></script>
-<script src="js/protein.js?v=20261009"></script>
-<script src="js/tabs.js?v=20261009"></script>
+<script src="js/programme.js?v=20261010"></script>
+<script src="js/protein.js?v=20261010"></script>
+<script src="js/tabs.js?v=20261010"></script>
 </body>
 </html>
