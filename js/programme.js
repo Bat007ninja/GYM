@@ -226,44 +226,6 @@
     return new Date().toISOString().slice(0, 10);
   }
 
-  const exportJsonBtn = document.getElementById('export-json-btn');
-  if (exportJsonBtn) {
-    exportJsonBtn.addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-      downloadBlob(blob, `true-strength-backup-${todayStamp()}.json`);
-    });
-  }
-
-  const importJsonBtn = document.getElementById('import-json-btn');
-  const importJsonInput = document.getElementById('import-json-input');
-  if (importJsonBtn && importJsonInput) {
-    importJsonBtn.addEventListener('click', () => importJsonInput.click());
-    importJsonInput.addEventListener('change', () => {
-      const file = importJsonInput.files[0];
-      importJsonInput.value = '';
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        let parsed;
-        try {
-          parsed = JSON.parse(reader.result);
-        } catch (e) {
-          alert('That file is not valid JSON - restore cancelled.');
-          return;
-        }
-        if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
-          alert('That file doesn\'t look like a True Strength AI backup - restore cancelled.');
-          return;
-        }
-        if (!confirm('This will replace all current progress on this device with the imported backup. Continue?')) return;
-        state = parsed;
-        saveState(state);
-        render();
-      };
-      reader.readAsText(file);
-    });
-  }
-
   const exportXlsxBtn = document.getElementById('export-xlsx-btn');
   if (exportXlsxBtn) {
     exportXlsxBtn.addEventListener('click', () => {

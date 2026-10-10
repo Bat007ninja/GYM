@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>True Strength AI — Relative &amp; Absolute Strength Calculator</title>
 <link rel="icon" href="assets/logo.png">
-<link rel="stylesheet" href="css/styles.css?v=20261011">
+<link rel="stylesheet" href="css/styles.css?v=20261012">
 </head>
 <body>
 <div class="page">
@@ -148,15 +148,12 @@
         </div>
         <div class="programme-actions">
           <button type="button" class="secondary-btn accent" id="ai-insight-btn">✨ Get AI Insight</button>
-          <button type="button" class="secondary-btn" id="export-json-btn">Backup (JSON)</button>
-          <button type="button" class="secondary-btn" id="import-json-btn">Restore backup</button>
-          <input type="file" id="import-json-input" accept="application/json" hidden>
           <button type="button" class="secondary-btn" id="export-xlsx-btn">Export to Excel</button>
           <button type="button" class="secondary-btn danger" id="reset-programme-btn">Reset progress</button>
         </div>
       </div>
       <div id="ai-insight-result" class="ai-insight-result" hidden></div>
-      <p class="placeholder-note" id="placeholder-note">All 6 days are the real programme from Top Condition PT. It's expected to fully refresh roughly every 3 months — when it does, update <code>js/programme-data.js</code>. Your logged history lives only in this browser — use "Backup" to save a copy you can restore on another device, or "Export to Excel" to view/analyse it.</p>
+      <p class="placeholder-note" id="placeholder-note">All 6 days are the real programme from Top Condition PT. It's expected to fully refresh roughly every 3 months — when it does, update <code>js/programme-data.js</code>. Your logged history lives only in this browser — use "Export to Excel" to view/analyse it, or the "Backup your data" section at the bottom of the page to save a copy of everything (all tabs) you can restore later or on another device.</p>
     </div>
 
     <div id="programme-days" class="programme-days"></div>
@@ -390,6 +387,20 @@
 
   </section>
 
+  <div class="card backup-card">
+    <div class="programme-intro-row">
+      <div>
+        <h3>Backup your data</h3>
+        <p class="chart-note">Everything across every tab — your programme log, nutrition and saved meals, and weight history — lives only in this browser. Back it all up in one file so you can restore it here later, or move it to another device.</p>
+      </div>
+      <div class="programme-actions">
+        <button type="button" class="secondary-btn" id="backup-all-btn">Backup everything (JSON)</button>
+        <button type="button" class="secondary-btn" id="restore-all-btn">Restore backup</button>
+        <input type="file" id="restore-all-input" accept="application/json" hidden>
+      </div>
+    </div>
+  </div>
+
   <footer class="disclaimer">
     <p>Standards here are general estimates built from commonly published bodyweight-multiplier strength charts — not a medical or federation-certified standard. Use them as a rough compass, not a verdict. Numbers are editable in <code>js/standards.js</code>.</p>
     <p class="credit">True Strength AI — made by Connor</p>
@@ -397,13 +408,14 @@
 
 </div>
 
-<script src="js/standards.js?v=20261011"></script>
-<script src="js/app.js?v=20261011"></script>
-<script src="js/programme-data.js?v=20261011"></script>
+<script src="js/standards.js?v=20261012"></script>
+<script src="js/app.js?v=20261012"></script>
+<script src="js/programme-data.js?v=20261012"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="js/programme.js?v=20261011"></script>
-<script src="js/protein.js?v=20261011"></script>
-<script src="js/weight.js?v=20261011"></script>
-<script src="js/tabs.js?v=20261011"></script>
+<script src="js/programme.js?v=20261012"></script>
+<script src="js/protein.js?v=20261012"></script>
+<script src="js/weight.js?v=20261012"></script>
+<script src="js/backup.js?v=20261012"></script>
+<script src="js/tabs.js?v=20261012"></script>
 </body>
 </html>

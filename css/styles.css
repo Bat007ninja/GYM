@@ -394,6 +394,16 @@ fieldset.lifts legend {
   vertical-align: -1px;
 }
 
+.backup-card {
+  margin-top: 28px;
+}
+
+.backup-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
 .disclaimer {
   margin-top: 32px;
   color: var(--text-muted);
