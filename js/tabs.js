@@ -4,6 +4,7 @@
     calculator: document.getElementById('page-calculator'),
     programme: document.getElementById('page-programme'),
     protein: document.getElementById('page-protein'),
+    weight: document.getElementById('page-weight'),
   };
 
   buttons.forEach((btn) => {

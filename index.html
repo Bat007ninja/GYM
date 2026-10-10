@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>True Strength AI — Relative &amp; Absolute Strength Calculator</title>
 <link rel="icon" href="assets/logo.png">
-<link rel="stylesheet" href="css/styles.css?v=20261010">
+<link rel="stylesheet" href="css/styles.css?v=20261011">
 </head>
 <body>
 <div class="page">
@@ -23,6 +23,7 @@
     <button type="button" class="tab-btn active" data-page="calculator" aria-current="page">Strength Calculator</button>
     <button type="button" class="tab-btn" data-page="programme">My Programme</button>
     <button type="button" class="tab-btn" data-page="protein">Nutrition</button>
+    <button type="button" class="tab-btn" data-page="weight">Weight</button>
   </nav>
 
   <main class="layout page-section" id="page-calculator">
@@ -330,6 +331,65 @@
 
   </section>
 
+  <section class="page-section" id="page-weight" hidden>
+
+    <div class="card weight-intro">
+      <h2>Weight Tracker</h2>
+      <p class="chart-note">Log your weight whenever you check it — see the trend on a chart, track it against a goal, and ask Pelé what it's doing. Saved on this device.</p>
+    </div>
+
+    <div class="weight-layout">
+
+      <section class="card weight-form-card" aria-labelledby="weight-form-heading">
+        <h3 id="weight-form-heading">Log weight</h3>
+
+        <form id="weight-form">
+          <div class="field-row">
+            <div class="field">
+              <label for="weight-value">Weight (kg)</label>
+              <input type="number" id="weight-value" min="0" step="0.1" placeholder="e.g. 82.4" required>
+            </div>
+            <div class="field">
+              <label for="weight-date">Date</label>
+              <input type="date" id="weight-date">
+            </div>
+          </div>
+          <button type="submit" class="primary-btn">Log weight</button>
+        </form>
+
+        <div class="weight-goal-block">
+          <label for="weight-goal">Goal weight (kg)</label>
+          <div class="weight-goal-row">
+            <input type="number" id="weight-goal" min="0" step="0.1" placeholder="e.g. 78">
+            <button type="button" class="secondary-btn" id="weight-goal-save-btn">Save goal</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card weight-stats-card" aria-labelledby="weight-stats-heading">
+        <h3 id="weight-stats-heading">Progress</h3>
+        <div id="weight-stats" class="weight-stats"></div>
+        <button type="button" class="secondary-btn accent" id="weight-ai-insight-btn">✨ Get AI Insight</button>
+        <div id="weight-ai-insight-result" class="ai-insight-result" hidden></div>
+      </section>
+
+    </div>
+
+    <section class="card weight-chart-card" aria-labelledby="weight-chart-heading">
+      <h3 id="weight-chart-heading">Trend</h3>
+      <div id="weight-chart" class="weight-chart-wrap"></div>
+    </section>
+
+    <section class="card weight-history-card" aria-labelledby="weight-history-heading">
+      <div class="protein-log-head">
+        <h3 id="weight-history-heading">History</h3>
+        <button type="button" class="secondary-btn danger" id="weight-clear-btn">Clear all</button>
+      </div>
+      <div id="weight-history" class="weight-history"></div>
+    </section>
+
+  </section>
+
   <footer class="disclaimer">
     <p>Standards here are general estimates built from commonly published bodyweight-multiplier strength charts — not a medical or federation-certified standard. Use them as a rough compass, not a verdict. Numbers are editable in <code>js/standards.js</code>.</p>
     <p class="credit">True Strength AI — made by Connor</p>
@@ -337,12 +397,13 @@
 
 </div>
 
-<script src="js/standards.js?v=20261010"></script>
-<script src="js/app.js?v=20261010"></script>
-<script src="js/programme-data.js?v=20261010"></script>
+<script src="js/standards.js?v=20261011"></script>
+<script src="js/app.js?v=20261011"></script>
+<script src="js/programme-data.js?v=20261011"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="js/programme.js?v=20261010"></script>
-<script src="js/protein.js?v=20261010"></script>
-<script src="js/tabs.js?v=20261010"></script>
+<script src="js/programme.js?v=20261011"></script>
+<script src="js/protein.js?v=20261011"></script>
+<script src="js/weight.js?v=20261011"></script>
+<script src="js/tabs.js?v=20261011"></script>
 </body>
 </html>
